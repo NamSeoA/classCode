@@ -183,10 +183,10 @@ public class OperatorTest {
 			case 4:
 				System.out.println("데이터를 삭제합니다.");
 				break;
-				 /*
+		 /*
 			default :
 				System.out.println("Best JAVA");
-				*/
+		 */
 		}
 		
 		
