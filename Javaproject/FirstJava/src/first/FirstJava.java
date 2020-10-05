@@ -9,6 +9,8 @@ public class FirstJava {
 		System.out.println("hello~ JAVA");
 		
 		System.out.println("안녕~!!");
+		
+	
 	}
 
 }
