@@ -11,22 +11,23 @@ public class MyMeth {
 			
 			long result = n1 + n2 ;
 			
-			return result;                             //데이터 필요하면 return. 필요없으면 return 안해도 됨
+			return result;                       //데이터 필요하면 return. 필요없으면 return 안해도 됨
 		}
+		
 		
 		
 		void sayHello() {
 			System.out.println("안녕하세요~ 여러분!!");
 		}
-		
+	
 		// 정수 두개를 받아서 덧셈의 결과를 출력하는 메서드
-		
 		void plus(int num1, int num2) {
 			
-			int result = num1 + num2;   //위의 result는 {}안에서만 유효하기 때문에 위의 result와 관련 X
+			int result = num1 + num2;       //위의 result는 {}안에서만 유효하기 때문에 위의 result와 관련 X
 			
 			System.out.println(result);
 		}
+		
 		
 		
 		

@@ -1,6 +1,7 @@
 package first;
 
 public class Triangle {
+
 /*
  * 내가 한 거
 	//변수, 메서드
@@ -24,15 +25,12 @@ public class Triangle {
 		
 		return c;
 	}
+*/
 	
-	*/
 	
-	
-	//변수 : 밑변, 높이
+	// 변수 : 밑변, 높이
 	float width;  //삼각형의 밑변  //삼각형 넓이는 소수점자리까지 나올 수 있기 때문에
 	float height; //삼각형의 높이
-	
-	
 	
 	
 	// 메서드 : 변수의 값을 변경하는 메서드, 삼각형의 넓이를 구하고 결과를 반환하는 메서드

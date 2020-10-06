@@ -4,6 +4,7 @@ public class MethodTest {
 
 	public static void main(String[] args) {
 		//********************이때 강의 영상 다시 보기 (1시 20분)
+		
 		//MyMeth 클래스 사용할 수 있도록 만들어주기 (코드 만들어놓고 사용 가능)
 		MyMeth my = new MyMeth();           //메모리에 만들어짐,올려짐 (Screenshot 보기)
 		
