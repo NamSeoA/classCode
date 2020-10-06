@@ -9,8 +9,6 @@ public class ExamVariable {
 		String regNo = "001006-1000000";
 		
 		
-		int 변수 = 10;
-		System.out.println(변수);
 		
 	}
 
