@@ -2,13 +2,15 @@ package ver02;
 
 import java.util.Scanner;
 
+import ver03.Util;
+
 public class PhoneBookMain {
 
 	public static void main(String[] args) {
 		
 		//사용자에게 데이터를 받는다.
 		Scanner s = new Scanner(System.in);
-	
+		
 		
 		while(true) {
 		//인스턴스 생성을 위해서는 이름, 전화번호, 생일 데이터를 받는다.

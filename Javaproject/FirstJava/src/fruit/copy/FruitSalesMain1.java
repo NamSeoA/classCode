@@ -18,12 +18,18 @@ public class FruitSalesMain1 {
 				//셀러3
 				FruitSeller seller3 = new FruitSeller(seller);
 				
-				
-				
 				// FruitBuyer 타입의 참조변수 선언과 초기화
 				FruitBuyer buyer = new FruitBuyer(10000, 0);
 				
-				// 사과를 구매한다 : 2000원 지불
+				
+//				seller.myMoney += 1500;
+//				buyer.myMoney -= 1500;
+				
+//				seller.numOfApple -= 2;
+//				buyer.numOfapple += 2;
+				
+			
+				// 사과를 구매한다 : 3000원 지불
 				buyer.buyApple(seller, 3000);
 				
 				// 사과를 구매한다 : 4000원 지불

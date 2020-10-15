@@ -44,7 +44,8 @@ public class ArrayBubbleSort {
 		System.out.println();
 		
 		
-		
+		int[] arr = new int[] {100, 200, 300};
+		System.out.println(arr);
 		
 		
 		

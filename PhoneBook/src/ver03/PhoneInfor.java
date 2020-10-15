@@ -42,7 +42,8 @@ PhoneInfor 라는 이름의 클래스를 정의해 보자. 클래스는 다음�
 			System.out.println("생일 : " +birthday);
 		}
 	
-	
+		int[] arr = new int[] {100, 200, 300};
+		System.out.println(arr);
 		
 		
 		
