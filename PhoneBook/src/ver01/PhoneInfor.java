@@ -31,7 +31,7 @@ PhoneInfor 라는 이름의 클래스를 정의해 보자. 클래스는 다음�
 		this(name, phoneNumber, null);
 	}
 	
-	//저장됨 데이터의 적절한 출력 메서드
+	//저장된 데이터의 적절한 출력 메서드
 	void showInfor() {
 		System.out.println("이름 : " + name);
 		System.out.println("전화번호 : " + phoneNumber);
