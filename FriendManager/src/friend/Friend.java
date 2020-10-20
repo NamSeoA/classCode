@@ -1,6 +1,7 @@
 package friend;
 
 public class Friend {
+	//개인 정보화 프로그램 _객체지향_상속
 	
 	private String name;         // 친구의 이름
 	private String phoneNumber;  // 전화번호	
