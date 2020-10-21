@@ -25,7 +25,7 @@ public class ExceptionCase2 {
 			  System.out.println(e.getMessage());
 		} catch (NullPointerException e) {
 			  System.out.println(e.getMessage());
-		} catch (Exception e) { // 처음에 해두면 상위클래스이기 때문에 다 걸려서 정확히 어떤 예외인지 확인 불간ㅇ
+		} catch (Exception e) { // 처음에 해두면 상위클래스이기 때문에 처리되서 정확히 어떤 예외인지 확인 불가능
 			  System.out.println(e.getMessage());
 		}
 
