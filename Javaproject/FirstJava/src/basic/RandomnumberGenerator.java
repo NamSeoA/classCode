@@ -33,7 +33,7 @@ public class RandomnumberGenerator {
 		
 		
 		System.out.println("System.currentTimeMillis() : " +System.currentTimeMillis());
-		System.out.println("System.nanaTime() : "+System.nanoTime());
+		System.out.println("System.nanoTime() : "+System.nanoTime());
 		Random r3 = new Random(System.currentTimeMillis());
 		System.out.println("이번주 번호 예상");
 		for(int i=0; i<6; i++) {
