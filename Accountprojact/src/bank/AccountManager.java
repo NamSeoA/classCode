@@ -1,4 +1,4 @@
-package account;
+package bank;
 
 public class AccountManager implements Util{
 
@@ -15,11 +15,11 @@ public class AccountManager implements Util{
 		cnt = 0;                       
 	}
 
+	private static AccountManager manager = new AccountManager(10);
+	
 	private void addInfor(Account info) {
 		accountArray[cnt++] = info;
 	}
-
-	private static AccountManager manager = new AccountManager(10);
 
 	public static AccountManager getInstance() {
 		return manager;
@@ -33,19 +33,21 @@ public class AccountManager implements Util{
 			System.out.println("새로 만드실 계좌번호를 입력해주세요.");
 			System.out.println("계좌 번호 :  ");
 			String AccountNumber = SC.next();
+			Account account = FindAccount_Nu(AccountNumber);
+			SC.nextLine();
 			if (FindAccount_Nu(AccountNumber) != null) { //계좌번호가 중복될시
 				System.out.println("※ 계좌번호가 중복됩니다. ");
 				return;
 			} else {
 				System.out.println("계좌주 : ");
-				String AccountName = SC.next();
+				String AccountName = SC.nextLine();
 				System.out.print("비밀번호 : "); //수정 필요 __숫자 4자리 입력
-				String Password = SC.next();
-				accountArray[i] = new Account(AccountNumber, AccountName, Password, balance, totalTrans);
+				String Password = SC.nextLine();
+				addInfor(new Account(AccountNumber, AccountName, Password));
 			}
 			System.out.println("============================================================================");
 			System.out.println("*" + FindAccount_Nu(AccountNumber).getAccountName() + "님의 계좌가 정상적으로 개설되었습니다.");
-			System.out.println("[계좌 주: " + accountArray[0].getAccountName() + "] , [계좌 번호: " + accountArray[0].getAccountNumber() + "] 입니다.");    
+			System.out.println("[계좌 주: " + accountArray[i].getAccountName() + "] , [계좌 번호: " + accountArray[i].getAccountNumber() + "] 입니다.");    
 			System.out.println("========================================");
 			System.out.println("※ 위 내용을 확인 바랍니다. \r");
 			return;
@@ -53,17 +55,16 @@ public class AccountManager implements Util{
 		System.out.println("※ 계좌를 개설 하실 수 없습니다.");
 	}
 
+	
 	// 검색된 계좌 객체를 반환하는 메서드
 	public Account FindAccount_Nu(String AccountNumber) {
-		for (int i = 0; accountArray[i] != null; i++) {
-			System.out.println(accountArray[i].getAccountNumber());
-		}
-//			if (accountArray[i].getAccountNumber()
-//		for (int i = 0; accountArray[i] != null; i++)
-//			if (accountArray[i].getAccountNumber().equals(AccountNumber))  //전달받은 계좌번호와 저장되어 있는 계좌번호가 일치하는지
-//				return accountArray[i];
+		for (int i = 0; accountArray[i] != null; i++)
+			if (accountArray[i].getAccountNumber().equals(AccountNumber)) //전달받은 계좌번호와 저장되어 있는 계좌번호가 일치하면
+				return accountArray[i];
 		return null;
 	}
+	
+	
 
 	// 계좌 조회 
 	   public void AccountCheck() {
@@ -113,6 +114,13 @@ public class AccountManager implements Util{
 	         }
 	      }
 	   } 
+
+	public static Account FindAccount_Na(String AccountName) {
+		for (int i = 0; accountArray[i] != null; i++)
+			if (accountArray[i].getAccountName().equals(AccountName))
+				return accountArray[i];
+		return null;
+	}
 
 	// 계좌 입금
 	public void saving() {
@@ -222,6 +230,48 @@ public class AccountManager implements Util{
 			System.out.println();
 		}
 
+	}
+
+	public void membership() {
+		BankMemberDAO bank = new BankMemberDAO();
+
+		System.out.println("이름을 입력하세요 : ");
+		String name = SC.nextLine();
+		System.out.println("비밀번호를 입력하세요 : ");
+		String password = SC.nextLine();
+		if (!(bank.nameCheck(name)) || !(bank.passwordCheck(password))) {
+			System.out.println("정보가 일치하지 않습니다.");
+			System.out.println("다시 입력해주세요.");
+		} else {
+			for (int i = 0; i < accountArray.length; i++) {
+				Account account = accountArray[i];
+				if (account.getAccountName() == name) {
+					if (account.getBalance() < 10000 || account.getTotalTrans() < 3) {
+						String membership = "Silver";
+						System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
+					} else if ((10000 <= account.getBalance() && account.getBalance() < 30000)
+							|| (3 <= account.getBalance() && account.getBalance() < 6)) {
+						String membership = "Gold";
+						System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
+					} else if ((30000 <= account.getBalance() && account.getBalance() < 60000)
+							|| (6 <= account.getBalance() && account.getTotalTrans() < 9)) {
+						String membership = "Dia";
+						System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
+					} else if ((60000 <= account.getBalance() && account.getBalance() >= 60000)
+							|| (9 <= account.getBalance() && account.getTotalTrans() >= 9)) {
+						String membership = "Platinum";
+						System.out.println(account.getAccountName() + "님의 등급은 " + membership + "입니다.");
+					}
+
+					break;
+				}
+
+				else {
+					System.out.println("비밀번호가 일치하지 않습니다.");
+					System.out.println("다시 입력해 주십시오.");
+				}
+			}
+		}
 	}
 
 	//getter & setter 메서드
