@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Account {
 
-     private String AccountNumber; // 계좌번호
+    private String AccountNumber; // 계좌번호
 	 private String name;         // 이름
 	 private String password;     // 계좌 비밀번호
 	 private long balance;		  // 잔액
@@ -12,7 +12,7 @@ public class Account {
 	 private static Account AccountArray[] = new Account[100];
 	 
 	 //생성자
-	 Account (String accountName, String name, String pw, long balance) {      
+	 public Account (String accountName, String name, String pw) {      
 	 this.AccountNumber = AccountNumber;
 	 this.name = name;
 	 this.password = password;
@@ -22,19 +22,19 @@ public class Account {
 	 
 	//getter & setter 메서드
 	 
-	public String getAccountName() {
+	public String getAccountNumber() {
 		return AccountNumber;
 	}
 
-	public void setAccountName(String AccountNumber) {
+	public void setAccountNumber(String AccountNumber) {
 		this.AccountNumber = AccountNumber;
 	}
 
-	public String getName() {
+	public String getAccountName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setAccountName(String name) {
 		this.name = name;
 	}
 
