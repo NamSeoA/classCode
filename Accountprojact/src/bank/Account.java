@@ -41,7 +41,7 @@ public class Account {
 		return AccountName;
 	}
 
-	public void setAccountName(String name) {
+	public void setAccountName(String AccountName) {
 		this.AccountName = AccountName;
 	}
 

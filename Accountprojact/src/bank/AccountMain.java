@@ -33,7 +33,8 @@ public class AccountMain implements Util {
 				manager.AccountCheck();
 				break;
 			case 3:
-				manager.membership();
+				manager.deleteAccount();
+				break;
 			case 4:
 				manager.saving();
 				break;

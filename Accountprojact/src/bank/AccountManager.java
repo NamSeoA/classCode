@@ -5,7 +5,7 @@ public class AccountManager implements Util{
 	private String AccountNumber;	// 계좌번호
 	private String password;	// 계좌 비밀번호
 	private long balance;	// 잔액
-	private static Account accountArray[] = new Account[100]; // 계좌생성 배열
+	private static Account accountArray[] = new Account[10]; // 계좌생성 배열
 	private int cnt; //배열에 저장된 요소의 개수
 	private static Transaction transaction[] = new Transaction[100];	// 거래내역
 	private int totalTrans;	// 거래횟수
@@ -27,27 +27,27 @@ public class AccountManager implements Util{
 
 	//계좌등록
 	public void CreateAccount() {
-		for (int i = 0; i < accountArray.length; i++) {
+		for (int i = 0; i<accountArray.length; i++) {
 			System.out.println("========================== ");
 			System.out.println("계좌번호를 생성하겠습니다");
 			System.out.println("새로 만드실 계좌번호를 입력해주세요.");
 			System.out.println("계좌 번호 :  ");
 			String AccountNumber = SC.next();
-			Account account = FindAccount_Nu(AccountNumber);
 			SC.nextLine();
 			if (FindAccount_Nu(AccountNumber) != null) { //계좌번호가 중복될시
 				System.out.println("※ 계좌번호가 중복됩니다. ");
+				System.out.println("※ 다시 확인하시기 바랍니다. ");
 				return;
 			} else {
 				System.out.println("계좌주 : ");
 				String AccountName = SC.nextLine();
 				System.out.print("비밀번호 : "); //수정 필요 __숫자 4자리 입력
-				String Password = SC.nextLine();
-				addInfor(new Account(AccountNumber, AccountName, Password));
+				String password = SC.nextLine();
+				addInfor(new Account(AccountNumber, AccountName, password));
 			}
 			System.out.println("============================================================================");
 			System.out.println("*" + FindAccount_Nu(AccountNumber).getAccountName() + "님의 계좌가 정상적으로 개설되었습니다.");
-			System.out.println("[계좌 주: " + accountArray[i].getAccountName() + "] , [계좌 번호: " + accountArray[i].getAccountNumber() + "] 입니다.");    
+			System.out.println("[계좌 주: " + FindAccount_Nu(AccountNumber).getAccountName() + "] , [계좌 번호: " + FindAccount_Nu(AccountNumber).getAccountNumber() + "] 입니다.");    
 			System.out.println("========================================");
 			System.out.println("※ 위 내용을 확인 바랍니다. \r");
 			return;
@@ -66,14 +66,14 @@ public class AccountManager implements Util{
 	
 	
 
-	// 계좌 조회 
+	   // 계좌 조회 
 	   public void AccountCheck() {
 
 	      System.out.println("[   계 좌 조 회    ]");
 	      System.out.print("계좌 번호: ");
 	      String number = SC.next();
 	      Account account = FindAccount_Nu(number);
-	      if(FindAccount_Nu(number) == null) {
+	      if(account == null) {
 	         System.out.println("존재하지 않는 계좌입니다.");
 	         System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
 	         System.out.println();
@@ -97,8 +97,8 @@ public class AccountManager implements Util{
 	            System.out.println();
 	         } else {
 	            for (int i = 0; accountArray[i] != null; i++)
-	               if (account.getAccountName().equals(accountArray[i].getAccountName())) {
-	                  Account AccountCheck = accountArray[i];
+	               if (account.getAccountName().equals(accountArray[cnt].getAccountName())) {
+	                  Account AccountCheck = accountArray[cnt];
 	                  if (AccountCheck != null) {
 	                     System.out.println("=========================");
 	                     System.out.println((new StringBuilder("     ")).append(AccountCheck.getAccountName()).append(" 님의 계좌 정보").toString());
@@ -114,14 +114,16 @@ public class AccountManager implements Util{
 	         }
 	      }
 	   } 
+	   
 
-	public static Account FindAccount_Na(String AccountName) {
+	public Account FindAccount_Na(String AccountName) {
 		for (int i = 0; accountArray[i] != null; i++)
 			if (accountArray[i].getAccountName().equals(AccountName))
 				return accountArray[i];
 		return null;
 	}
 
+	
 	// 계좌 입금
 	public void saving() {
 		System.out.println("[===입  금===]");
@@ -232,6 +234,7 @@ public class AccountManager implements Util{
 
 	}
 
+	//멤버쉽
 	public void membership() {
 		BankMemberDAO bank = new BankMemberDAO();
 
@@ -243,7 +246,7 @@ public class AccountManager implements Util{
 			System.out.println("정보가 일치하지 않습니다.");
 			System.out.println("다시 입력해주세요.");
 		} else {
-			for (int i = 0; i < accountArray.length; i++) {
+			for (int i = 0; i < cnt; i++) {
 				Account account = accountArray[i];
 				if (account.getAccountName() == name) {
 					if (account.getBalance() < 10000 || account.getTotalTrans() < 3) {
@@ -273,7 +276,55 @@ public class AccountManager implements Util{
 			}
 		}
 	}
-
+	
+	
+	
+	//계좌 해지
+	// 사용자에게 계좌번호를 입력 받고 검색한 후 계좌 해지
+		public void deleteAccount() {
+			if(cnt==0) {
+				System.out.println("삭제할 정보가 없습니다.");
+				return; 
+			}
+			SC.nextLine();
+			System.out.println("삭제하고자 하는 정보의 계좌번호를 입력해주세요.");
+			String Number = SC.nextLine();
+			System.out.println("계좌번호의 비밀번호를 입력해주세요.");
+			String Password = SC.nextLine();
+		
+			int index = searchIndex(Number, Password); 
+			
+			
+			if(index<0) {
+				System.out.println("찾으시는 계좌번호 "+Number+"의 정보가 존재하지 않습니다.");
+				System.out.println("메뉴로 이동합니다.");
+			} else {
+				// 배열의 요소를 왼쪽으로 shift 
+				for(int i=index; i<cnt-1; i++) {
+					accountArray[i] = accountArray[i+1];
+				}
+				cnt--;  //저장된 개수를 감소
+				System.out.println("요청하신 계좌번호 :"+Number+"가 해지되었습니다.");
+				return;
+			}
+		}
+	
+	
+		// 배열의 index를 찾는 메서드
+		private int searchIndex(String Number,String Password) {
+				int index = -1; //정보가 없을 때
+				
+				for(int i=0; i<cnt; i++) {
+					if(accountArray[i].getAccountNumber().equals(Number) && accountArray[i].getPassword().equals(Password)) {
+						index = i;
+					}
+				}
+				return index;
+			}
+	
+	
+	
+	
 	//getter & setter 메서드
 	public String getAccountNumber() {
 		return AccountNumber;
