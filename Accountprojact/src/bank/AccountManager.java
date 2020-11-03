@@ -25,36 +25,48 @@ public class AccountManager implements Util{
 	public static AccountManager getInstance() {
 		return manager;
 	}
+	
 
-	//계좌생성
-	public void CreateAccount() {
-		for (int i = 0; i<accountArray.length; i++) {
-			System.out.println("========================== ");
-			System.out.println("계좌번호를 생성하겠습니다");
-			System.out.println("새로 만드실 계좌번호를 (****-****-****-****)형식으로 입력해주세요.");
-			System.out.println("계좌 번호 :  ");
-			String AccountNumber = SC.next();
-			SC.nextLine();
-			if (FindAccount_Nu(AccountNumber) != null) { //계좌번호가 중복될시
-				System.out.println("※ 계좌번호가 중복됩니다. ");
-				System.out.println("※ 다시 확인하시기 바랍니다. ");
-				return;
-			} else {
-				System.out.println("계좌주 : ");
-				String AccountName = SC.nextLine();
-				System.out.print("비밀번호 : "); 
-				String password = SC.nextLine();
-				addInfor(new Account(AccountNumber, AccountName, password));
-			}
-			System.out.println("============================================================================");
-			System.out.println("*" + FindAccount_Nu(AccountNumber).getAccountName() + "님의 계좌가 정상적으로 개설되었습니다.");
-			System.out.println("[계좌 주: " + FindAccount_Nu(AccountNumber).getAccountName() + "] , [계좌 번호: " + FindAccount_Nu(AccountNumber).getAccountNumber() + "] 입니다. \r");    
-			System.out.println("========================================");
-			System.out.println("※ 위 내용을 확인 바랍니다. \r");
-			return;
-		}
-		System.out.println("※ 계좌를 개설 하실 수 없습니다.");
-	}
+
+  
+  //계좌 생성
+  public void CreateAccount() {
+     for (int i = 0; i<accountArray.length; i++) {
+        System.out.println("========================== ");
+        System.out.println("계좌번호를 생성하겠습니다");
+        System.out.println("새로 만드실 계좌번호를 입력해주세요.");
+        System.out.println("계좌 번호 :  ");
+        String AccountNumber = SC.next();
+        SC.nextLine();
+        if (FindAccount_Nu(AccountNumber) != null) { //계좌번호가 중복될시
+           System.out.println("※ 계좌번호가 중복됩니다. ");
+           System.out.println("※ 다시 확인하시기 바랍니다. ");
+           return;
+        } else {
+           System.out.println("계좌주 : ");
+           String AccountName = SC.nextLine();
+           System.out.print("비밀번호 : "); //수정 필요 __숫자 4자리 입력
+           String password = SC.nextLine();
+           number(password);
+           
+           if(number(password)==true) {
+           addInfor(new Account(AccountNumber, AccountName, password));
+           System.out.println("============================================================================");
+           System.out.println("*" + FindAccount_Nu(AccountNumber).getAccountName() + "님의 계좌가 정상적으로 개설되었습니다.");
+           System.out.println("[계좌 주: " + FindAccount_Nu(AccountNumber).getAccountName() + "] , [계좌 번호: " + FindAccount_Nu(AccountNumber).getAccountNumber() + "] 입니다.");    
+           System.out.println("========================================");
+           System.out.println("※ 위 내용을 확인 바랍니다. \r");
+           return;
+
+           }
+           else {
+              return;
+           }
+        }
+        
+     }
+     System.out.println("※ 계좌를 개설 하실 수 없습니다.");
+  }
 
 	
 	//비밀번호 검색
@@ -65,6 +77,31 @@ public class AccountManager implements Util{
 		return null;
 	}
 	
+	//비밀번호를 숫자 4자리 형식으로 출력 메서드
+	 public boolean number(String passwordInput) {
+        int index = 0;
+        if(passwordInput.length()>=5) {
+        	System.out.println("비밀번호를 4자리 입력해주세요.");
+           return false;
+        } else if(passwordInput.length()==4) {
+           for(int i=0; i<4; i++) {
+           char CharInput = passwordInput.charAt(i);
+           if(CharInput>=0x30&&CharInput<=0x39) {
+              index = (int)CharInput;
+           }
+           else {
+              System.out.println("잘못된 형식입니다. 비밀번호를 다시 입력해주세요.");
+              return false;
+           }
+        }
+        passwordInput = String.valueOf(index);
+        return true;
+        }
+        else {
+          System.out.println("비밀번호를 4자리 입력해주세요.");
+           return false;
+        }
+     }
 	
 	
 	//계좌 조회 
@@ -308,9 +345,9 @@ public class AccountManager implements Util{
 			return mbs;
 		}
 	
-	
 		
-		
+			
+			
 	
 	//getter & setter 메서드
 	public String getAccountNumber() {
