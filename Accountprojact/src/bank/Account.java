@@ -10,7 +10,6 @@ public class Account {
 	private long balance;		  // 잔액
 	private static Account AccountArray[] = new Account[100];
 	private int totalTrans;	// 거래횟수
-
 	
 	//생성자
 	public Account (String AccountNumber, String AccountName, String password) {      
