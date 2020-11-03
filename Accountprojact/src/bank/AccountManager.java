@@ -15,7 +15,7 @@ public class AccountManager implements Util{
 		cnt = 0;                       
 	}
 
-	private static AccountManager manager = new AccountManager(10);
+	private static AccountManager manager = new AccountManager(100);
 	
 	private void addInfor(Account info) {
 		accountArray[cnt++] = info;
@@ -56,7 +56,7 @@ public class AccountManager implements Util{
 	}
 
 	
-	// 검색된 계좌 객체를 반환하는 메서드
+	// 비밀번호 검색
 	public Account FindAccount_Nu(String AccountNumber) {
 		for (int i = 0; accountArray[i] != null; i++)
 			if (accountArray[i].getAccountNumber().equals(AccountNumber)) //전달받은 계좌번호와 저장되어 있는 계좌번호가 일치하면
@@ -67,55 +67,38 @@ public class AccountManager implements Util{
 	
 
 	   // 계좌 조회 
-	   public void AccountCheck() {
+	// 계좌 조회 
+		public void AccountCheck() {
 
-	      System.out.println("[   계 좌 조 회    ]");
-	      System.out.print("계좌 번호: ");
-	      String number = SC.next();
-	      Account account = FindAccount_Nu(number);
-	      if(account == null) {
-	         System.out.println("존재하지 않는 계좌입니다.");
-	         System.out.println("계좌번호를 다시 확인하시기 바랍니다.");
-	         System.out.println();
-	         return;
-	      }
-	      System.out.print("계좌주 : ");
-	      String accountName = SC.next();
-	      account = FindAccount_Na(accountName);
-	      if (!accountName.equals(account.getAccountName())) {
-	         System.out.println();
-	         System.out.println("※ 등록된 정보와 일치하지 않습니다.");
-	         System.out.println("※ 확인 후 다시 이용바랍니다.");
-	         return;
-	      }
-	      System.out.println("비밀번호 입력 : ");
-	      String password = SC.next();
-	      if (account != null) {
-	         if (!password.equals(account.getPassword())) {
-	            System.out.println("비밀번호가 일치하지 않습니다.");
-	            System.out.println("확인 후 이용 바랍니다.");
-	            System.out.println();
-	         } else {
-	            for (int i = 0; accountArray[i] != null; i++)
-	               if (account.getAccountName().equals(accountArray[cnt].getAccountName())) {
-	                  Account AccountCheck = accountArray[cnt];
-	                  if (AccountCheck != null) {
-	                     System.out.println("=========================");
-	                     System.out.println((new StringBuilder("     ")).append(AccountCheck.getAccountName()).append(" 님의 계좌 정보").toString());
-	                     System.out.println("-------------------------");
-	                     System.out.println((new StringBuilder("조회하신 계좌주\t:")).append(AccountCheck.getAccountName()).toString());
-	                     System.out.println((new StringBuilder(String.valueOf(AccountCheck.getAccountName()))).append(" 님의 계좌번호\t:").append(AccountCheck.getAccountNumber()).toString());
-	                     System.out.println((new StringBuilder(String.valueOf(AccountCheck.getAccountName()))).append(" 님의 잔 액 \t:").append(AccountCheck.getBalance()).append(" 원").toString());
-	                     System.out.println("=========================");
-	                     System.out.println("※ 등록된 계좌 정보를 확인 하였습니다.\r");
-	                  }
+			System.out.println("[========계 좌 조 회========]");
+			System.out.print("계좌주 : ");
+			String accountName = SC.next();
+			Account account = FindAccount_Na(accountName);
+			if (!accountName.equals(account.getAccountName())) {
+				System.out.println();
+				System.out.println("※ 등록되지 않은 이름입니다.");
+				System.out.println("※ 확인 후 다시 이용바랍니다.");
+				return;
+			}
+			for (int i = 0; accountArray[i] != null; i++)
+				if (account.getAccountName().equals(accountArray[i].getAccountName())) {
+					Account AccountCheck = accountArray[i];
+					if (AccountCheck != null) {
+						System.out.println("=========================");
+						System.out.println((new StringBuilder("     ")).append(AccountCheck.getAccountName()).append(" 님의 계좌 정보").toString());
+						System.out.println("-------------------------");
+						System.out.println((new StringBuilder("조회하신 계좌주\t: ")).append(AccountCheck.getAccountName()).toString());
+						System.out.println((new StringBuilder(String.valueOf(AccountCheck.getAccountName()))).append(" 님의 계좌번호\t: ").append(AccountCheck.getAccountNumber()).toString());
+						System.out.println((new StringBuilder(String.valueOf(AccountCheck.getAccountName()))).append(" 님의 잔 액 \t: ").append(AccountCheck.getBalance()).append(" 원").toString());
+						System.out.println("=========================");
+						System.out.println("※ 등록된 계좌 정보를 확인 하였습니다.\r");
+					}
 
-	               }
-	         }
-	      }
-	   } 
+				}
+
+		} 
 	   
-
+    // 계좌주 검색
 	public Account FindAccount_Na(String AccountName) {
 		for (int i = 0; accountArray[i] != null; i++)
 			if (accountArray[i].getAccountName().equals(AccountName))
@@ -282,6 +265,7 @@ public class AccountManager implements Util{
 	//계좌 해지
 	// 사용자에게 계좌번호를 입력 받고 검색한 후 계좌 해지
 		public void deleteAccount() {
+			System.out.println("[========계 좌 삭 제========]");
 			if(cnt==0) {
 				System.out.println("삭제할 정보가 없습니다.");
 				return; 
