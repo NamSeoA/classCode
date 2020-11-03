@@ -47,7 +47,7 @@ public class AccountManager implements Util{
 			}
 			System.out.println("============================================================================");
 			System.out.println("*" + FindAccount_Nu(AccountNumber).getAccountName() + "님의 계좌가 정상적으로 개설되었습니다.");
-			System.out.println("[계좌 주: " + FindAccount_Nu(AccountNumber).getAccountName() + "] , [계좌 번호: " + FindAccount_Nu(AccountNumber).getAccountNumber() + "] 입니다.");    
+			System.out.println("[계좌 주: " + FindAccount_Nu(AccountNumber).getAccountName() + "] , [계좌 번호: " + FindAccount_Nu(AccountNumber).getAccountNumber() + "] 입니다. \r");    
 			System.out.println("========================================");
 			System.out.println("※ 위 내용을 확인 바랍니다. \r");
 			return;
@@ -65,8 +65,7 @@ public class AccountManager implements Util{
 	}
 	
 	
-
-	   // 계좌 조회 
+	
 	// 계좌 조회 
 		public void AccountCheck() {
 
@@ -95,9 +94,10 @@ public class AccountManager implements Util{
 					}
 
 				}
-
+			System.out.println("※ 등록된 계좌 정보를 확인 하였습니다.\r");
 		} 
 	   
+		
     // 계좌주 검색
 	public Account FindAccount_Na(String AccountName) {
 		for (int i = 0; accountArray[i] != null; i++)
@@ -211,6 +211,7 @@ public class AccountManager implements Util{
 			account.setBalance(account.getBalance() - money);	// account의 잔액-이체금액
 			account1.setBalance(account1.getBalance() + money);	// account1의 잔액+이체금액
 			transaction[totalTrans++] = new Transaction("이체", money);	// 거래내역 추가
+			System.out.println("이체가 완료되었습니다.");
 			System.out.println("현재 잔고는 " + account.getBalance() + "원 입니다.\r");
 			System.out.println();
 		}
@@ -288,7 +289,7 @@ public class AccountManager implements Util{
 					accountArray[i] = accountArray[i+1];
 				}
 				cnt--;  //저장된 개수를 감소
-				System.out.println("요청하신 계좌번호 :"+Number+"가 해지되었습니다.");
+				System.out.println("요청하신 계좌번호 :"+Number+"가 해지되었습니다.\r");
 				return;
 			}
 		}
