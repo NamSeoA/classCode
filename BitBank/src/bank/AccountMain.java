@@ -1,11 +1,9 @@
 package bank;
-
 import java.util.InputMismatchException;
 
 public class AccountMain implements Util {
-
+	
 	public void startAccountMenu() {
-		
 		BitBankManager bbm = new BitBankManager();
 		AccountManager manager = AccountManager.getInstance();
 		Transaction t = Transaction.getInstance();
@@ -28,7 +26,6 @@ public class AccountMain implements Util {
 			int MenuSelect = 0;
 			
 			try {
-				
 				MenuSelect = SC.nextInt();
 				
 			if(!(MenuSelect>=1 && MenuSelect<=8)) {
@@ -70,7 +67,7 @@ public class AccountMain implements Util {
 				t.trans();
 				break;
 			case 8:
-				bbm.startBankMenu();
+				return;
 			}
 
 		}

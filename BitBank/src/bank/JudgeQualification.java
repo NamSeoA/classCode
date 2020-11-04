@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import javax.print.attribute.Size2DSyntax;
 
-public class JudgeQualification extends LoanInfor {
+public class JudgeQualification {
 	
 	int Balance;				// 계좌 잔액
 	String membership;			// 멤버십 등급
@@ -19,9 +19,7 @@ public class JudgeQualification extends LoanInfor {
 	// 대출 가능 금액 출력 메서드
 	void showPossibleAmound() {
 		
-		// #회원 정보에 있는지 없는지 확인 후 예외처리 
 		BankMemberDAO bmd = new BankMemberDAO();
-		//LoanProgress lp = new LoanProgress();
 		LoanProgress lp = LoanProgress.getInstance();
 		
 		String nm = "";
@@ -35,7 +33,7 @@ public class JudgeQualification extends LoanInfor {
 				try {
 					System.out.println("고객님의 이름을 입력해주세요 >> ");
 					nm = sc.nextLine().trim();
-					System.out.println("비밀번호를 입력해주세요 >> ");
+					System.out.println("회원 비밀번호를 입력해주세요 >> ");
 					pw = sc.nextLine().trim();
 					
 
@@ -70,7 +68,7 @@ public class JudgeQualification extends LoanInfor {
 		
 		// Account 객체 생성
 		Account ac;
-		// AccountManager의 메서드 통해서 일치하는 리스트 찾기
+		// AccountManager 인스턴스 생성
 		AccountManager am = AccountManager.getInstance();
 		// Account 객체에 리스트 대입
 		ac = am.FindAccount_Na(nm);
@@ -94,12 +92,13 @@ public class JudgeQualification extends LoanInfor {
 				System.out.println("최대 대출 가능 금액 : "+(int)(ac.getBalance()*0.5)+"원");
 			} else if(ac.getBalance()>=100000 && ac.getBalance()<200000) {	// 10만원 <= 계좌잔액 < 20만원 
 				System.out.println("최대 대출 가능 금액 : "+(int)(ac.getBalance()*0.7)+"원");
-			} else if(ac.getBalance()>=200000) {					// 계좌잔액 >= 20만원
+			} else if(ac.getBalance()>=200000) {							// 계좌잔액 >= 20만원
 				System.out.println("최대 대출 가능 금액 : "+(int)(ac.getBalance()*0.9)+"원");
 			}
 			return;
 		} else if(!membership.equals("Platinum")){	// 멤버십 등급이 플래티넘 미만일 경우 대출 불가능
 			System.out.println("멤버십 등급이 Platinum 미만인 회원은 대출이 불가능합니다.");
+			System.out.println(" [※ 필수 조건 : Platinum 등급(계좌업무 3번 이상, 혹은 예금 금액 60,000원 이상 시 승급)]");
 			System.out.println("다시 메뉴로 이동합니다.");
 			System.out.println();
 			return;

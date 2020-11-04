@@ -18,6 +18,10 @@ public class Account {
 		this.password = password;
 	}
 
+	public Account() {
+		
+	}
+
 	//getter & setter 메서드
 	
 	public int getTotalTrans() {

@@ -55,15 +55,15 @@ public class AccountManager implements Util{
 	               String password = SC.nextLine();
 	               number(password);
 	
-	               if(number(password)==true) {
-	                  addInfor(new Account(AccountNumber, AccountName, password));
-	                  System.out.println(cnt);
-	                  System.out.println("============================================================================");
-	                  System.out.println("*" + FindAccount_Nu(AccountNumber).getAccountName() + "님의 계좌가 정상적으로 개설되었습니다.");
-	                  System.out.println("[계좌 주: " + FindAccount_Nu(AccountNumber).getAccountName() + "] , [계좌 번호: " + FindAccount_Nu(AccountNumber).getAccountNumber() + "] 입니다.");    
-	                  System.out.println("========================================");
-	                  System.out.println("※ 위 내용을 확인 바랍니다. \r");
-	                  return;
+	             if(number(password)==true) {
+	               addInfor(new Account(AccountNumber, AccountName, password));
+	               System.out.println(cnt);
+	               System.out.println("============================================================================");
+	               System.out.println("*" + FindAccount_Nu(AccountNumber).getAccountName() + "님의 계좌가 정상적으로 개설되었습니다.");
+	               System.out.println("[계좌 주: " + FindAccount_Nu(AccountNumber).getAccountName() + "] , [계좌 번호: " + FindAccount_Nu(AccountNumber).getAccountNumber() + "] 입니다.");    
+	               System.out.println("========================================");
+	               System.out.println("※ 위 내용을 확인 바랍니다. \r");
+	                 return;
 	
 	               }
 	            }
@@ -157,7 +157,7 @@ public class AccountManager implements Util{
 
     
    
-	   // 비밀번호 검색
+	   // 계좌번호 검색
 	   public Account FindAccount_Nu(String AccountNumber) {
 	      for (int i = 0; accountArray[i] != null; i++)
 	         if (accountArray[i].getAccountNumber().equals(AccountNumber)) //전달받은 계좌번호와 저장되어 있는 계좌번호가 일치하면
