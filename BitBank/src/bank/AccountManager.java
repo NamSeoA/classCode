@@ -28,46 +28,52 @@ public class AccountManager implements Util{
 	}
 	
 
-
   
-  //계좌 생성
-  public void CreateAccount() {
-     for (int i = 0; i<accountArray.length; i++) {
-        System.out.println("========================== ");
-        System.out.println("계좌번호를 생성하겠습니다");
-        System.out.println("새로 만드실 계좌번호를 입력해주세요.");
-        System.out.println("계좌 번호 :  ");
-        String AccountNumber = SC.next();
-        SC.nextLine();
-        if (FindAccount_Nu(AccountNumber) != null) { //계좌번호가 중복될시
-           System.out.println("※ 계좌번호가 중복됩니다. ");
-           System.out.println("※ 다시 확인하시기 바랍니다. ");
-           return;
-        } else {
-           System.out.println("계좌주 : ");
-           String AccountName = SC.nextLine();
-           System.out.print("비밀번호 : ");
-           String password = SC.nextLine();
-           number(password);
-           
-           if(number(password)==true) {
-           addInfor(new Account(AccountNumber, AccountName, password));
-           System.out.println("============================================================================");
-           System.out.println("*" + FindAccount_Nu(AccountNumber).getAccountName() + "님의 계좌가 정상적으로 개설되었습니다.");
-           System.out.println("[계좌 주: " + FindAccount_Nu(AccountNumber).getAccountName() + "] , [계좌 번호: " + FindAccount_Nu(AccountNumber).getAccountNumber() + "] 입니다.");    
-           System.out.println("========================================");
-           System.out.println("※ 위 내용을 확인 바랍니다. \r");
-           return;
+	 //계좌 생성
+	 public void CreateAccount() {
+	    for (int i = 0; i<accountArray.length; i++) {
+	         System.out.println("========================== ");
+	         System.out.println("계좌번호를 생성하겠습니다");
+	         System.out.println("계좌번호를 (****-****-****-****)형식으로 입력해주세요.");
+	         System.out.println("계좌 번호 :  ");
+	         String AccountNumber = SC.next();
+	         SC.nextLine();
+	         if (FindAccount_Nu(AccountNumber) != null) { // 계좌번호가 중복될시
+	            System.out.println("※ 계좌번호가 중복됩니다. ");
+	            System.out.println("※ 다시 확인하시기 바랍니다. ");
+	            return;
+	         } else {
+	            System.out.println("계좌주(문자만 입력해주세요.)");
+	            System.out.print(" : ");
+	            String AccountName = SC.nextLine();
+	            name(AccountName);
+	            if(name(AccountName)==true) {
+	               System.out.println("비밀번호(4자리 숫자로 입력해주세요.)");
+	               System.out.print(" : ");
+	               String password = SC.nextLine();
+	               number(password);
 
-           }
-           else {
-              return;
-           }
-        }
-        
-     }
-     System.out.println("※ 계좌를 개설 하실 수 없습니다.");
-  }
+	               if(number(password)==true) {
+	                  addInfor(new Account(AccountNumber, AccountName, password));
+	                  System.out.println(cnt);
+	                  System.out.println("============================================================================");
+	                  System.out.println("*" + FindAccount_Nu(AccountNumber).getAccountName() + "님의 계좌가 정상적으로 개설되었습니다.");
+	                  System.out.println("[계좌 주: " + FindAccount_Nu(AccountNumber).getAccountName() + "] , [계좌 번호: " + FindAccount_Nu(AccountNumber).getAccountNumber() + "] 입니다.");    
+	                  System.out.println("========================================");
+	                  System.out.println("※ 위 내용을 확인 바랍니다. \r");
+	                  return;
+
+	               }
+	            }
+	            else {
+	               return;
+	            }
+	         }
+
+	      }
+	      System.out.println("※ 계좌를 개설 하실 수 없습니다.");
+	   }
+
 
 	
 	//비밀번호 검색
@@ -105,10 +111,28 @@ public class AccountManager implements Util{
 	           return false;
 	        }
 	     }
-	 
-	 
-	 
-	
+		 
+		 
+		// 계좌주, 한글과 영문만 입력
+		   public boolean name(String nameInput) {
+		      char index = 0;
+		      for(int i=0; i<nameInput.length(); i++) {
+		         char CharInput = nameInput.charAt(i);
+		         if((CharInput>=0x41&&CharInput<=0x5A)||(CharInput>=0x61&&CharInput<=0x7A)
+		               ||(CharInput>0x3130&&CharInput<0x318F)||(CharInput>=0xAC00&&CharInput<=0xD7A3)) {
+		            index = CharInput;
+		         }
+		         else {
+		            System.out.println("잘못된 형식입니다. 계좌주를 다시 입력해주세요.");
+		            return false;
+		         }
+		      }
+		      nameInput = String.valueOf(index);
+		      return true;
+		   }
+
+		 
+		   
 	
 	//계좌 조회 
 	public void AccountCheck() {
@@ -149,6 +173,8 @@ public class AccountManager implements Util{
 		return null;
 	}
 
+	
+	
 	
 	 //계좌 해지
      // 사용자에게 계좌번호를 입력 받고 검색한 후 계좌 해지
